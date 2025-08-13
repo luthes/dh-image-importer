@@ -1,0 +1,69 @@
+<form class="flexcol" autocomplete="off">
+  <div class="form-group">
+    <label>Compendium</label>
+    <select name="pack">
+      {{#each packs}}
+        <option value="{{this.value}}">{{this.text}}</option>
+      {{/each}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Image folder (relative to Data)</label>
+    <div class="form-fields">
+      <input type="text" name="folder" value="{{defaults.folder}}" placeholder="e.g. assets"/>
+      <button type="button" class="browse-folder"><i class="fas fa-folder-open"></i> Browse</button>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Include subfolders?</label>
+    <input type="checkbox" name="recursive" {{#if defaults.recursive}}checked{{/if}} />
+  </div>
+  <div class="form-group">
+    <label>Import into World first?</label>
+    <input type="checkbox" name="importfirst" {{#if defaults.importfirst}}checked{{/if}} />
+  </div>
+  <div class="form-group">
+    <label>World Items folder (created if missing)</label>
+    <input type="text" name="worldfolder" value="{{defaults.worldfolder}}" />
+  </div>
+  <div class="form-group">
+    <label>Allowed extensions (comma-separated)</label>
+    <input type="text" name="exts" value="{{defaults.exts}}" />
+  </div>
+  <div class="form-group">
+    <label>Dry run?</label>
+    <input type="checkbox" name="dryrun" {{#if defaults.dryrun}}checked{{/if}} />
+  </div>
+  <fieldset>
+    <legend>Zip Upload (optional)</legend>
+    <div class="form-group">
+      <label>Zip File</label>
+      <input type="file" name="zipfile" accept=".zip" />
+    </div>
+    <div class="form-group">
+      <label>Destination Folder</label>
+      <div class="form-fields">
+        <input type="text" name="zipdest" value="{{defaults.folder}}" />
+        <button type="button" class="browse-zipdest"><i class="fas fa-folder-open"></i> Browse</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Overwrite Existing Files</label>
+      <input type="checkbox" name="zipoverwrite" checked />
+    </div>
+    <div class="form-group" data-section="progress" style="display:none">
+      <label>Upload Progress</label>
+      <div class="form-fields" style="gap: 0.5rem; align-items: center;">
+        <progress class="zip-progress" max="100" value="0" style="width: 100%"></progress>
+        <span class="zip-progress-label">0%</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <button type="button" class="do-zip-upload"><i class="fas fa-file-zipper"></i> Upload & Unpack</button>
+    </div>
+  </fieldset>
+
+  <footer class="sheet-footer flexrow">
+    <button type="submit" class="submit"><i class="fas fa-play"></i> Run</button>
+  </footer>
+</form>

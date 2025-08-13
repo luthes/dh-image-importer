@@ -1,0 +1,15 @@
+{
+    "GODSTEIN": {
+        "Attributes": "Attributes",
+        "Domains": "Divine Domains",
+        "Miracles": "Miracles",
+        "Description": "Description",
+        "DivinePower": "Divine Power",
+        "Followers": "Followers",
+        "Influence": "Influence",
+        "Wisdom": "Wisdom",
+        "Power": "Power",
+        "PrimaryDomain": "Primary Domain",
+        "SecondaryDomains": "Secondary Domains"
+    }
+} 

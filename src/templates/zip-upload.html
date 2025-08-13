@@ -1,0 +1,30 @@
+<form class="flexcol" autocomplete="off">
+  <div class="form-group">
+    <label>Zip File</label>
+    <input type="file" name="zipfile" accept=".zip" />
+  </div>
+  <div class="form-group">
+    <label>Destination Folder (relative to Data)</label>
+    <div class="form-fields">
+      <input type="text" name="dest" value="{{dest}}" placeholder="e.g. assets/dh-image-importer" />
+      <button type="button" class="browse-dest"><i class="fas fa-folder-open"></i> Browse</button>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Overwrite Existing Files</label>
+    <input type="checkbox" name="overwrite" {{#if overwrite}}checked{{/if}} />
+  </div>
+  <div class="form-group" data-section="progress" style="display:none">
+    <label>Progress</label>
+    <div class="form-fields" style="gap: 0.5rem; align-items: center;">
+      <progress class="zip-progress" max="100" value="0" style="width: 100%"></progress>
+      <span class="zip-progress-label">0%</span>
+    </div>
+  </div>
+  <footer class="sheet-footer flexrow">
+    <button type="submit" class="submit">
+      <i class="fas fa-file-zipper"></i> Upload & Unpack
+    </button>
+  </footer>
+</form>
+
