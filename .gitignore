@@ -1,0 +1,21 @@
+# Node/Editor
+.DS_Store
+.idea/
+.vscode/
+*.log
+
+# Environment
+.env
+
+# Foundry development artifacts
+foundry-vtt/
+.foundry-vtt/
+resources/
+
+# Local artifacts
+images.txt
+
+# Build output
+dist/
+build/
+*.zip

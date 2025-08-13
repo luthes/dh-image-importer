@@ -1,0 +1,1 @@
+This is a module for Foundry for God Character Sheets based on [Harmony Ginger's Substack post](https://harmonyginger.substack.com/p/godstein-part-1-concept-god-creation) on Braunstein/Godstein for initial world building for a DnD campaign.
