@@ -1,0 +1,66 @@
+name: foundry-release-ci
+
+permissions:
+  contents: write
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # Get the version from the `module.json`
+      - name: Get Version
+        shell: bash
+        id: get-version
+        run: echo "MODULE_VERSION=$(cat ./src/module.json | jq -r .version)" >> $GITHUB_OUTPUT
+
+      - name: Get Module ID
+        shell: bash
+        id: get-module-id
+        run: echo "MODULE_ID=$(cat ./src/module.json | jq -r .id)" >> $GITHUB_OUTPUT
+
+      - name: Verify Outputs
+        run: printf "Module ID - ${{ steps.get-module-id.outputs.module_id }} \n Module Version - ${{ steps.get-version.outputs.module_version }}"
+
+      - name: Create Zip Archive
+        id: create-zip-archive
+        shell: bash
+        run: zip -r ./src/${{ steps.get-module-id.outputs.module_id }}.zip ./src/*
+
+      - name: Create Latest Release
+        id: create_latest_release
+        uses: ncipollo/release-action@v1
+        if: endsWith(github.ref, 'main') # Only update the latest release when pushing to the main branch
+        with:
+          allowUpdates: true
+          name: Latest
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: './src/module.json,./src/${{ steps.get-module-id.outputs.module_id }}.zip'
+          tag: latest
+
+      - name: Replace Manifest Version
+        shell: bash
+        id: replace-manifest-version
+        run: sed -i -e 's/latest/${{ steps.get-version.outputs.module_version }}/g' ./src/module.json
+
+      - name: Create Zip Versioned Archive
+        id: create-versioned-zip-archive
+        shell: bash
+        run: zip -r ./src/${{ steps.get-module-id.outputs.module_id }}.zip ./src/*
+
+      - name: Create Versioned Release
+        # Create an additional release for this version
+        id: create_versioned_release
+        uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true # set to false if you do not want to allow updates on existing releases
+          name: v${{ steps.get-version.outputs.module_version }}
+          draft: false
+          prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: './src/module.json,./src/${{ steps.get-module-id.outputs.module_id }}.zip'
+          tag: ${{ steps.get-version.outputs.module_version }}
