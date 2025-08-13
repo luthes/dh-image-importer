@@ -1,6 +1,6 @@
 {
   "id": "dh-image-importer",
-  "title": "Daggerheart Image Replacer",
+  "title": "Daggerheart Image Importer",
   "description": "Replaces images in Compendium with matching images from a directory",
   "authors": [
     {
